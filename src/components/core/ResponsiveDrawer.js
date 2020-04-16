@@ -95,4 +95,5 @@ export function ResponsiveDrawer(props) {
 
 ResponsiveDrawer.propTypes = {
     container: PropTypes.any,
+    navigation: PropTypes.array,
 };
