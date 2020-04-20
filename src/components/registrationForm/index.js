@@ -12,14 +12,23 @@ import {
     Paper,
     TextField
 } from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {useStyles} from "./styles";
+import fire from '../../fire';
 
 export default function RegistrationForm() {
-    const {register, handleSubmit, watch, errors} = useForm();
-    const onSubmit = data => {
-        console.log(data)
-    };
+    const [loading, setLoading] = React.useState(false);
     const classes = useStyles();
+    const {register, handleSubmit, errors} = useForm();
+
+    const onSubmit = data => {
+        setLoading(true);
+        fire.database().ref('users').push( data )
+            .then(() => {
+                setLoading(false);
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <main className={classes.layout}>
@@ -61,7 +70,7 @@ export default function RegistrationForm() {
                         <Grid item xs={12}>
                             <FormControl error={!!errors.agreementCheck}>
                                 <FormControlLabel
-                                    control={<Checkbox error color='secondary' name='agreementCheck' value='yes' inputRef={register({required: true})}/>}
+                                    control={<Checkbox color='secondary' name='agreementCheck' value='yes' inputRef={register({required: true})}/>}
                                     label='I agree to the terms and conditions'
                                 />
                                 {!!errors.agreementCheck && <FormHelperText>You need to agree to our terms</FormHelperText>}
@@ -69,8 +78,12 @@ export default function RegistrationForm() {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} className={classes.buttons}>
-                        <Button className={classes.submitButton} variant='contained' color='primary' type='submit'>Register
-                            Your Cat</Button>
+                        <div className={classes.wrapper}>
+                            <Button className={classes.submitButton} variant='contained' color='primary' type='submit' disabled={loading}>
+                                {loading && <CircularProgress size={16}/>}
+                                Register Your Cat</Button>
+
+                        </div>
                     </Grid>
                 </form>
             </Paper>

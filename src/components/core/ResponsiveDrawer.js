@@ -31,7 +31,7 @@ export function ResponsiveDrawer(props) {
             <div className={classes.toolbar}/>
             <Divider/>
             <List>
-                {navigation.map(i => <ListItemLink to={i.to} primary={i.name} icon={i.icon}/>)}
+                {navigation.map((i, index) => <ListItemLink to={i.to} key={i.name+index} primary={i.name} icon={i.icon}/>)}
             </List>
         </div>
     );
