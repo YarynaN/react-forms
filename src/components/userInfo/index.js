@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core'
 import {styles} from "./styles";
 import { connect } from 'react-redux';
-import { watchPersonData } from '../../store/reducer';
+import { watchPersonData } from '../../services';
 
 const mapStateToProps = (state) => {
     return {
@@ -35,13 +35,13 @@ class UserInfo extends React.Component {
                 <Paper className={classes.paper}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField fullWidth={true} name='userName' readoly="true" value={this.props.personData.userName || ''}/>
+                            <TextField fullWidth={true} name='userName' readoly="true" value={this.props.personData.userName}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField fullWidth={true} name='userName' readoly="true"  value={this.props.personData.catName || ''}/>
+                            <TextField fullWidth={true} name='userName' readoly="true"  value={this.props.personData.catName}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField fullWidth={true} name='userName' readoly="true" value={this.props.personData.age || ''}/>
+                            <TextField fullWidth={true} name='userName' readoly="true" value={this.props.personData.age}/>
                         </Grid>
                     </Grid>
                 </Paper>
@@ -51,5 +51,11 @@ class UserInfo extends React.Component {
 }
 
 const styledComponent = withStyles(styles)(UserInfo);
+const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(styledComponent);
+ConnectedComponent.defaultProps = {
+    userName: '',
+    catName: '',
+    age: ''
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);
+export default ConnectedComponent;

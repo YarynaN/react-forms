@@ -2,7 +2,7 @@ import {SET_PERSON_DATA} from "./actions";
 import fire from '../fire';
 
 const initialState = {
-    personData: { },
+    personData: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,15 +26,5 @@ const setPersonData = (personData) => {
     };
 };
 
-const watchPersonData = (id) => {
-    return function(dispatch) {
-        fire.database().ref(`users/${id}`).on("value", function(snapshot)
-        {
-            var personData = snapshot.val();
-            var actionSetPersonData = setPersonData(personData);
-            dispatch(actionSetPersonData);
-        }, function(error) { console.log(error); });
-    }
-};
 
-export { setPersonData, watchPersonData };
+export { setPersonData };
