@@ -52,10 +52,5 @@ class UserInfo extends React.Component {
 
 const styledComponent = withStyles(styles)(UserInfo);
 const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(styledComponent);
-ConnectedComponent.defaultProps = {
-    userName: '',
-    catName: '',
-    age: ''
-};
 
 export default ConnectedComponent;

@@ -1,8 +1,11 @@
 import {SET_PERSON_DATA} from "./actions";
-import fire from '../fire';
 
 const initialState = {
-    personData: {},
+    personData: {
+        userName: '',
+        catName: '',
+        age: ''
+    },
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +28,5 @@ const setPersonData = (personData) => {
         value: personData
     };
 };
-
 
 export { setPersonData };
